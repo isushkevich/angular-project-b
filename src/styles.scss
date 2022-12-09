@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 15px;
+}
+
+.subheader-centered {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  margin: auto;
+  gap: 15px;
+}
+
+.snackbar {
+  color: white;
+}

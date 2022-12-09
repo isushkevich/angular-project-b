@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-project-b": {
+    "angular-project-a": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -40,7 +40,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-project-b",
+            "outputPath": "dist/angular-project-a",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,7 +51,7 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -89,18 +89,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-project-b:build"
+            "browserTarget": "angular-project-a:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-project-b:build:production"
+              "browserTarget": "angular-project-a:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-project-b:build"
+            "browserTarget": "angular-project-a:build"
           }
         },
         "lint": {
@@ -115,5 +115,5 @@
       }
     }
   },
-  "defaultProject": "angular-project-b"
+  "defaultProject": "angular-project-a"
 }

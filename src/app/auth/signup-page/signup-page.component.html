@@ -1,0 +1,54 @@
+<div>
+    <h3 class="subheader-centered">Create a new user</h3>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <div class="form-container">
+            <mat-form-field>
+                <input matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="signUpForm.get('email')?.invalid">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-hint>Required</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Username" formControlName="login">
+                <mat-error *ngIf="signUpForm.get('login')?.invalid">
+                    Required, from 6 to 64 symbols
+                </mat-error>
+                <mat-hint>Required, from 6 to 64 symbols</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password" formControlName="password">
+                <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                    <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="signUpForm.get('password')?.invalid">
+                    Required, from 8 to 64 symbols, at least 1 number and 1 letter
+                </mat-error>
+                <mat-hint>Required, from 8 to 64 symbols, at least 1 number and 1 letter</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput [type]="hidePasswordRepeat ? 'password' : 'text'" placeholder="Repeat password"
+                       formControlName="passwordRepeat">
+                <mat-error *ngIf="signUpForm.get('passwordRepeat')?.invalid">
+                    Passwords don't match
+                </mat-error>
+                <button type="button" mat-icon-button matSuffix (click)="hidePasswordRepeat = !hidePasswordRepeat"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordRepeat">
+                    <mat-icon>{{hidePasswordRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="tel" placeholder="Telephone number" formControlName="telephone">
+                <span matPrefix>+&nbsp;</span>
+                <mat-error *ngIf="signUpForm.get('telephone')?.invalid">
+                    Numbers only, from 9 to 15 symbols
+                </mat-error>
+                <mat-hint>Optional, numbers only, from 9 to 15 symbols</mat-hint>
+            </mat-form-field>
+            <button mat-stroked-button type="submit" color="primary" class="create-account-button" [disabled]="!signUpForm.valid">
+                Create account
+            </button>
+        </div>
+    </form>
+</div>
