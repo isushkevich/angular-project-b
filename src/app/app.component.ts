@@ -8,13 +8,14 @@ import {UserService} from "./user.service";
             <h1>
                 {{title}}
             </h1>
-
             <nav>
                 <div class="navigation">
-                    <button mat-stroked-button color="accent" type="button" routerLink="/">Home</button>
                     <button mat-stroked-button color="accent" type="button" routerLink="/auth">Login or Sign Up</button>
                     <button *ngIf="this.user" mat-stroked-button color="accent" type="button"
                             routerLink="/todo">To Do List
+                    </button>
+                    <button *ngIf="this.user" mat-stroked-button color="warn" type="button"
+                            routerLink="/todo">Log Out
                     </button>
                 </div>
             </nav>
