@@ -6,7 +6,7 @@ import {UserService} from "./user.service";
     template: `
         <div style="text-align:center" class="content">
             <h1>
-                Welcome to {{title}}!
+                {{title}}
             </h1>
 
             <nav>
@@ -23,7 +23,7 @@ import {UserService} from "./user.service";
     `,
 })
 export class AppComponent {
-    public title = "angular-project-b";
+    public title = "Ivan's To-Do App";
     public user: null | string;
 
     constructor(private userService: UserService) {
