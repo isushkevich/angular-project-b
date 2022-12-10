@@ -14,9 +14,6 @@ import {UserService} from "./user.service";
                     <button mat-stroked-button color="accent" type="button" routerLink="/">Home</button>
                     <button mat-stroked-button color="accent" type="button" routerLink="/auth">Login or Sign Up</button>
                     <button *ngIf="this.user" mat-stroked-button color="accent" type="button"
-                            routerLink="/content">Content
-                    </button>
-                    <button mat-stroked-button color="accent" type="button"
                             routerLink="/todo">To Do List
                     </button>
                 </div>
