@@ -38,7 +38,7 @@ export class LoginPageComponent implements OnInit {
                 next: (data: any) => {
                     this.openSnackBar(`Logged in as ${data.username}`);
                     this.userService.setUser(data.username);
-                    this.router.navigate(['/content']);
+                    this.router.navigate(['/todo']);
                 },
                 error: error => {
                     this.openSnackBar(error.error.message);
