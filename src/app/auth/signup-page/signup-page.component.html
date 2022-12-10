@@ -17,7 +17,8 @@
                 <mat-hint>Required, from 6 to 64 symbols</mat-hint>
             </mat-form-field>
             <mat-form-field>
-                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password" formControlName="password">
+                <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password"
+                       formControlName="password">
                 <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
                         [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                     <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -46,7 +47,8 @@
                 </mat-error>
                 <mat-hint>Optional, numbers only, from 9 to 15 symbols</mat-hint>
             </mat-form-field>
-            <button mat-stroked-button type="submit" color="primary" class="create-account-button" [disabled]="!signUpForm.valid">
+            <button mat-stroked-button type="submit" color="primary" class="create-account-button"
+                    [disabled]="!signUpForm.valid">
                 Create account
             </button>
         </div>

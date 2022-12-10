@@ -31,6 +31,7 @@ export class LoginPageComponent implements OnInit {
     openSnackBar(content) {
         this.snackBar.open(content, 'Close', {duration: 10000, panelClass: ["snackbar"]});
     }
+
     onSubmit() {
         this.userService.authorize(this.loginForm.value.login, this.loginForm.value.password)
             .subscribe({
