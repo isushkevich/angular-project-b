@@ -10,6 +10,7 @@ const routes: Routes = [
         loadChildren: () => import('./content/content.module').then(m => m.ContentModule),
         canActivate: [ContentGuardGuard]
     },
+    {path: 'todo', loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule)},
     {path: '', pathMatch: 'full', redirectTo: '/auth'},
 ];
 
