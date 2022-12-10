@@ -23,7 +23,7 @@ import {UserService} from "./user.service";
     `,
 })
 export class AppComponent {
-    public title = "angular-project-a";
+    public title = "angular-project-b";
     public user: null | string;
 
     constructor(private userService: UserService) {
