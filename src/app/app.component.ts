@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
 import {UserService} from "./user.service";
+import {Router} from "@angular/router";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: "app-root",
@@ -15,7 +17,7 @@ import {UserService} from "./user.service";
                             routerLink="/todo">To Do List
                     </button>
                     <button *ngIf="this.user" mat-stroked-button color="warn" type="button"
-                            routerLink="/todo">Log Out
+                            (click)="onSave()">Log Out
                     </button>
                 </div>
             </nav>
@@ -27,9 +29,19 @@ export class AppComponent {
     public title = "Ivan's To-Do App";
     public user: null | string;
 
-    constructor(private userService: UserService) {
+    constructor(private snackBar: MatSnackBar, private userService: UserService, private router: Router) {
         userService.getUser.subscribe((value) => {
             this.user = value;
         })
+    }
+
+    openSnackBar(content) {
+        this.snackBar.open(content, 'Close', {duration: 10000, panelClass: ["snackbar"]});
+    }
+
+    onSave() {
+        this.userService.setUser(null);
+        this.router.navigate(['/auth']);
+        this.openSnackBar(`Logged out successfully`);
     }
 }
