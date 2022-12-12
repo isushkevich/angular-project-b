@@ -1,23 +1,24 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
+
+const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    userChange: BehaviorSubject<null | string> = new BehaviorSubject<null | string>(null);
+    userChange: BehaviorSubject<null | object> = new BehaviorSubject<null | object>(null);
 
     public get getUser() {
         return this.userChange.asObservable();
     }
 
     constructor(private http: HttpClient) {
-        this.setUser(localStorage.getItem("username"));
+        this.setUser(JSON.parse(localStorage.getItem("user")));
     }
 
     authorize(login, password) {
-        const headers = {'Content-Type': 'application/json'};
         const body = JSON.stringify({
             username: login,
             password: password,
@@ -28,7 +29,11 @@ export class UserService {
         return this.http.post('https://dummyjson.com/auth/login', body, {headers: headers});
     }
 
-    setUser(username: string) {
-        this.userChange.next(username);
+    getTodoList(id) {
+        return this.http.get(`https://dummyjson.com/todos/${id}`, {headers: headers});
+    }
+
+    setUser(user: object) {
+        this.userChange.next(user);
     }
 }

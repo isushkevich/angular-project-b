@@ -36,9 +36,11 @@ export class LoginPageComponent implements OnInit {
         this.userService.authorize(this.loginForm.value.login, this.loginForm.value.password)
             .subscribe({
                 next: (data: any) => {
-                    this.openSnackBar(`Logged in as ${data.username}`);
-                    this.userService.setUser(data.username);
-                    localStorage.setItem("username", data.username);
+                    const user = {id: data.id, username: data.username};
+
+                    this.openSnackBar(`Logged in as ${user.username}`);
+                    this.userService.setUser(user);
+                    localStorage.setItem("user", JSON.stringify(user));
                     this.router.navigate(['/todo']);
                 },
                 error: error => {

@@ -27,7 +27,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class AppComponent {
     public title = "Ivan's To-Do App";
-    public user: null | string;
+    public user: object | null;
 
     constructor(private snackBar: MatSnackBar, private userService: UserService, private router: Router) {
         userService.getUser.subscribe((value) => {

@@ -7,7 +7,7 @@ import {UserService} from "./user.service";
   providedIn: 'root'
 })
 export class TodoGuard implements CanActivate {
-  private user: string | null;
+  private user: object | null;
 
   canActivate(
       route: ActivatedRouteSnapshot,
