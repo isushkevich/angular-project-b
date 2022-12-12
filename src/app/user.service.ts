@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
+import {Data} from "./todo/todo-page/todo-page.component";
 
 const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
@@ -29,8 +30,8 @@ export class UserService {
         return this.http.post('https://dummyjson.com/auth/login', body, {headers: headers});
     }
 
-    getTodoList(id) {
-        return this.http.get(`https://dummyjson.com/todos/${id}`, {headers: headers});
+    getTodoList(id): Observable<Data> {
+        return this.http.get<Data>(`https://dummyjson.com/todos/user/${id}`, {headers: headers});
     }
 
     setUser(user: object) {

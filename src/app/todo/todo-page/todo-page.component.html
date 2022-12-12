@@ -1,1 +1,6 @@
-<p>todo-page works!</p>
+<div>
+    <h3 class="subheader-centered">{{this.user.username}}'s To-Do List</h3>
+    <ul *ngIf="tasks$ | async as tasks">
+        <li *ngFor="let task of tasks.todos; index as i">{{ i + 1 }}. {{ task.todo }}</li>
+    </ul>
+</div>
