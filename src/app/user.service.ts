@@ -6,8 +6,6 @@ import {BehaviorSubject} from "rxjs";
     providedIn: 'root'
 })
 export class UserService {
-    user: null | string;
-
     userChange: BehaviorSubject<null | string> = new BehaviorSubject<null | string>(null);
 
     public get getUser() {
@@ -15,7 +13,7 @@ export class UserService {
     }
 
     constructor(private http: HttpClient) {
-        this.user = null;
+        this.setUser(localStorage.getItem("username"));
     }
 
     authorize(login, password) {

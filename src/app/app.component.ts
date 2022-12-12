@@ -17,7 +17,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
                             routerLink="/todo">To Do List
                     </button>
                     <button *ngIf="this.user" mat-button color="warn" type="button"
-                            (click)="onSave()">Logout
+                            (click)="logOut()">Logout
                     </button>
                 </div>
             </nav>
@@ -39,8 +39,9 @@ export class AppComponent {
         this.snackBar.open(content, 'Close', {duration: 10000, panelClass: ["snackbar"]});
     }
 
-    onSave() {
+    logOut() {
         this.userService.setUser(null);
+        localStorage.clear();
         this.router.navigate(['/auth']);
         this.openSnackBar(`Logged out successfully`);
     }
