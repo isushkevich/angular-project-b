@@ -1,5 +1,6 @@
 import {Component, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {UserService} from "../../user.service";
+import {TodoService} from "../../todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -32,7 +33,7 @@ export class TodoPageComponent implements OnInit {
     public tasks$: Observable<Data> | null;
     taskForm: FormGroup;
 
-    constructor(private snackBar: MatSnackBar, private userService: UserService, private http: HttpClient) {
+    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService, private http: HttpClient) {
         userService.getUser.subscribe((value: { [key: string]: string | number } | null) => {
             this.user = value;
         })
@@ -48,7 +49,7 @@ export class TodoPageComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.tasks$ =  this.userService.getTodoList(this.user.id);
+        this.tasks$ =  this.todoService.getTodoList(this.user.id);
     }
 
     addTask() {
