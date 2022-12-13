@@ -1,6 +1,5 @@
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {FormGroup, Validators} from "@angular/forms";
-import {FormControl} from '@angular/forms';
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserService} from "../../user.service";
 import {Router} from "@angular/router"
