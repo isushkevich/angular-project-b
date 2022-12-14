@@ -4,7 +4,6 @@ import {TodoService} from "../../todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 export interface TodoList {
     completed: boolean;
@@ -20,8 +19,6 @@ export interface Data {
     total: number,
 }
 
-const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
 @Component({
     selector: 'app-todo-page',
     templateUrl: './todo-page.component.html',
@@ -33,7 +30,7 @@ export class TodoPageComponent implements OnInit {
     public tasks$: Observable<Data> | null;
     taskForm: FormGroup;
 
-    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService, private http: HttpClient) {
+    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService) {
         userService.getUser.subscribe((value: { [key: string]: string | number } | null) => {
             this.user = value;
         })
@@ -50,15 +47,19 @@ export class TodoPageComponent implements OnInit {
 
     ngOnInit() {
         this.tasks$ =  this.todoService.getTodoList(this.user.id);
+        console.log(this.user)
     }
 
     addTask() {
-        const body = JSON.stringify({
-            todo: this.taskForm.value.taskName,
-            completed: this.taskForm.value.isCompleted,
-            userId: 5,
-        });
-
-        return this.http.post('https://dummyjson.com/todos/add', body, {headers: headers}).subscribe(data=>console.log(data))
+        this.todoService.addTask(this.taskForm.value.taskName, this.taskForm.value.isCompleted, this.user.id)
+            .subscribe({
+                next: (data: any) => {
+                    console.log(data);
+                    // this.tasks$.
+                },
+                error: error => {
+                    this.openSnackBar(error.error.message);
+                }
+            })
     }
 }
