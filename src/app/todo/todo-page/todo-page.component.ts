@@ -1,8 +1,7 @@
-import {Component, ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef} from '@angular/core';
 import {UserService} from "../../user.service";
 import {TodoService} from "../../todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Observable} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
 
 export interface TodoList {
@@ -27,10 +26,10 @@ export interface Data {
 })
 export class TodoPageComponent implements OnInit {
     public user: { [key: string]: string | number } | null;
-    public tasks$: Observable<Data> | null;
+    public todoList: Data;
     taskForm: FormGroup;
 
-    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService) {
+    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService, private changeDetector: ChangeDetectorRef) {
         userService.getUser.subscribe((value: { [key: string]: string | number } | null) => {
             this.user = value;
         })
@@ -46,16 +45,20 @@ export class TodoPageComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.tasks$ =  this.todoService.getTodoList(this.user.id);
-        console.log(this.user)
+       this.todoService.getTodoList(this.user.id).subscribe({
+           next: (data) => {
+               this.todoList = data;
+               this.changeDetector.detectChanges();
+           }
+       })
     }
 
     addTask() {
         this.todoService.addTask(this.taskForm.value.taskName, this.taskForm.value.isCompleted, this.user.id)
             .subscribe({
                 next: (data: any) => {
-                    console.log(data);
-                    // this.tasks$.
+                    this.todoList.todos.push(data);
+                    this.changeDetector.detectChanges();
                 },
                 error: error => {
                     this.openSnackBar(error.error.message);
