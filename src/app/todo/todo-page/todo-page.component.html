@@ -7,7 +7,7 @@
         <mat-checkbox formControlName="isCompleted">Completed</mat-checkbox>
         <button mat-stroked-button [disabled]="!taskForm.value.taskName" type="button" (click)="addTask()">Create task</button>
     </form>
-    <ul *ngIf="todoList">
-        <li *ngFor="let task of todoList.todos; index as i">{{ i + 1 }}. {{ task.todo }}</li>
-    </ul>
+    <div *ngIf="todoList">
+        <app-todo-item [todos]="todoList.todos"></app-todo-item>
+    </div>
 </div>
