@@ -8,6 +8,6 @@
         <button mat-stroked-button [disabled]="!taskForm.value.taskName" type="button" (click)="addTask()">Create task</button>
     </form>
     <div *ngIf="todoList">
-        <app-todo-item [todos]="todoList.todos"></app-todo-item>
+        <app-todo-item *ngFor="let task of todoList.todos" [todo]=task [isCompleted]=task.completed></app-todo-item>
     </div>
 </div>

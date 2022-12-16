@@ -1,3 +1,8 @@
-<ul>
-    <li *ngFor="let task of todos; index as i">{{ i + 1 }}. {{ task.todo }}</li>
-</ul>
+<div class="todo-item">
+    <p class="task-text" [ngClass]="{'task-text-completed': isCompleted}">{{ todo.todo }}</p>
+    <div class="todo-buttons">
+        <button mat-flat-button type="button" (click)="editTask()">Edit</button>
+        <button mat-flat-button type="button" (click)="deleteTask()">Delete</button>
+    </div>
+</div>
+

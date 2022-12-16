@@ -1,4 +1,12 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ChangeDetectionStrategy,
+    Input,
+    SimpleChanges,
+    ChangeDetectorRef,
+    OnChanges
+} from '@angular/core';
 import {TodoList} from "../todo-page/todo-page.component";
 
 @Component({
@@ -7,13 +15,31 @@ import {TodoList} from "../todo-page/todo-page.component";
     styleUrls: ['./todo-item.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoItemComponent implements OnInit {
-    @Input() todos: Array<TodoList>;
+export class TodoItemComponent implements OnInit, OnChanges {
+    @Input() todo: TodoList;
+    @Input() isCompleted: boolean;
 
-    constructor() {
+    constructor(private changeDetector: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
+        console.log(this.todo)
     }
 
+    ngOnChanges(changes: SimpleChanges) {
+        console.log(changes.todo.currentValue)
+        if (changes.todo) {
+            console.log("here")
+        }
+        this.todo = changes.todo.currentValue;
+        this.changeDetector.detectChanges();
+    }
+
+    editTask() {
+
+    }
+
+    deleteTask() {
+
+    }
 }
