@@ -12,8 +12,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
             </h1>
             <nav>
                 <div class="navigation">
-                    <button mat-stroked-button color="accent" type="button" routerLink="/auth">Login</button>
-                    <button *ngIf="this.user" mat-stroked-button color="accent" type="button"
+                    <button mat-raised-button color="accent" type="button" routerLink="/auth">Login</button>
+                    <button *ngIf="this.user" mat-raised-button color="accent" type="button"
                             routerLink="/todo">To Do List
                     </button>
                     <button *ngIf="this.user" mat-button color="warn" type="button"
