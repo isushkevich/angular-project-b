@@ -2,7 +2,7 @@
     <p class="task-text" [ngClass]="{'task-text-completed': isCompleted}">{{ todo.todo }}</p>
     <div class="todo-buttons">
         <button mat-flat-button type="button" (click)="editTask()">Edit</button>
-        <button mat-flat-button type="button" (click)="deleteTask()">Delete</button>
+        <button mat-flat-button type="button" (click)="deleteTask($event)">Delete</button>
     </div>
 </div>
 

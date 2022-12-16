@@ -23,14 +23,9 @@ export class TodoItemComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        console.log(this.todo)
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        console.log(changes.todo.currentValue)
-        if (changes.todo) {
-            console.log("here")
-        }
         this.todo = changes.todo.currentValue;
         this.changeDetector.detectChanges();
     }
@@ -39,7 +34,7 @@ export class TodoItemComponent implements OnInit, OnChanges {
 
     }
 
-    deleteTask() {
-
+    deleteTask($event: MouseEvent) {
+        console.log($event)
     }
 }
