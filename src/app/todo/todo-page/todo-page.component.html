@@ -1,13 +1,17 @@
 <div>
     <h3 class="subheader-centered">{{this.user.username}}'s To-Do List</h3>
     <form [formGroup]="taskForm">
-        <mat-form-field>
-            <input matInput placeholder="Task name" formControlName="taskName">
-        </mat-form-field>
-        <mat-checkbox formControlName="isCompleted">Completed</mat-checkbox>
-        <button mat-stroked-button [disabled]="!taskForm.value.taskName" type="button" (click)="addTask()">Create task</button>
+        <div class="add-task-form">
+            <mat-form-field>
+                <input matInput placeholder="Task name" formControlName="taskName">
+            </mat-form-field>
+            <mat-checkbox formControlName="isCompleted">Completed</mat-checkbox>
+            <button mat-stroked-button [disabled]="!taskForm.value.taskName" type="button" (click)="addTask()">Create
+                task
+            </button>
+        </div>
     </form>
-    <div *ngIf="todoList">
+    <div *ngIf="todoList" class="todo-container">
         <app-todo-item *ngFor="let task of todoList.todos" [todo]=task [isCompleted]=task.completed></app-todo-item>
     </div>
 </div>
