@@ -57,6 +57,8 @@ export class TodoPageComponent implements OnInit {
         this.todoService.addTask(this.taskForm.value.taskName, this.taskForm.value.isCompleted, this.user.id)
             .subscribe({
                 next: (data: any) => {
+                    this.openSnackBar(`Task '${this.taskForm.value.taskName}' created`);
+                    this.taskForm.reset();
                     this.todoList.todos.push(data);
                     this.changeDetector.detectChanges();
                 },
