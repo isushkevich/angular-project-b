@@ -12,6 +12,6 @@
         </div>
     </form>
     <div *ngIf="todoList" class="todo-container">
-        <app-todo-item *ngFor="let task of todoList.todos" [todo]=task [isCompleted]=task.completed></app-todo-item>
+        <app-todo-item *ngFor="let task of todoList.todos" [todo]=task [isCompleted]=task.completed (onDeleteTask)="deleteTask($event)"></app-todo-item>
     </div>
 </div>

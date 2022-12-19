@@ -5,7 +5,7 @@ import {
     Input,
     SimpleChanges,
     ChangeDetectorRef,
-    OnChanges
+    OnChanges, Output, EventEmitter
 } from '@angular/core';
 import {TodoList} from "../todo-page/todo-page.component";
 
@@ -18,6 +18,7 @@ import {TodoList} from "../todo-page/todo-page.component";
 export class TodoItemComponent implements OnInit, OnChanges {
     @Input() todo: TodoList;
     @Input() isCompleted: boolean;
+    @Output() onDeleteTask: EventEmitter<number> = new EventEmitter();
 
     constructor(private changeDetector: ChangeDetectorRef) {
     }
@@ -34,7 +35,7 @@ export class TodoItemComponent implements OnInit, OnChanges {
 
     }
 
-    deleteTask($event: MouseEvent) {
-        console.log($event)
+    deleteTask() {
+        this.onDeleteTask.emit(this.todo.id);
     }
 }

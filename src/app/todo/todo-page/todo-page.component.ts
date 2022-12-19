@@ -1,4 +1,4 @@
-import {Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UserService} from "../../user.service";
 import {TodoService} from "../../todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -61,10 +61,16 @@ export class TodoPageComponent implements OnInit {
                     this.taskForm.reset();
                     this.todoList.todos.push(data);
                     this.changeDetector.detectChanges();
+                    console.log(this.todoList.todos)
                 },
                 error: error => {
                     this.openSnackBar(error.error.message);
                 }
             })
+    }
+
+    deleteTask(taskId: number) {
+        this.todoList.todos = this.todoList.todos.filter(task => task.id != taskId);
+        this.changeDetector.detectChanges();
     }
 }
