@@ -1,8 +1,23 @@
 <div class="todo-item">
-    <p class="task-text" [ngClass]="{'task-text-completed': isCompleted}">{{ todo.todo }}</p>
-    <div class="todo-buttons">
-        <button mat-flat-button type="button" (click)="editTask()">Edit</button>
-        <button mat-flat-button type="button" (click)="deleteTask()">Delete</button>
+    <div *ngIf="!this.isEditMode">
+        <p class="task-text" [ngClass]="{'task-text-completed': isCompleted}">{{ todo.todo }}</p>
+        <div class="todo-buttons">
+            <button mat-stroked-button type="button" (click)="switchEditMode()">Edit</button>
+            <button mat-stroked-button type="button" (click)="deleteTask()">Delete</button>
+        </div>
+    </div>
+    <div *ngIf="this.isEditMode">
+        <form [formGroup]="editTaskForm">
+            <div class="edit-task-form">
+                <mat-form-field>
+                    <input matInput placeholder="Task name" formControlName="taskName">
+                </mat-form-field>
+                <mat-checkbox formControlName="isCompleted">Completed</mat-checkbox>
+                <button mat-stroked-button [disabled]="!editTaskForm.value.taskName" type="button" (click)="saveTask()">
+                    Save task
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
