@@ -58,7 +58,7 @@ export class TodoPageComponent implements OnInit {
             .subscribe({
                 next: (data: any) => {
                     this.openSnackBar(`Task '${this.taskForm.value.taskName}' created`);
-                    this.taskForm.reset();
+                    this.taskForm.reset({taskName: '', isCompleted: false});
                     this.todoList.todos.push(data);
                     this.changeDetector.detectChanges();
                     console.log(this.todoList.todos)
