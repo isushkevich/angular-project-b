@@ -3,6 +3,7 @@ import {UserService} from "../../user.service";
 import {TodoService} from "../../todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup} from "@angular/forms";
+import {GenerateIDService} from "../../generate-id.service";
 
 export interface TodoList {
     completed: boolean;
@@ -29,7 +30,7 @@ export class TodoPageComponent implements OnInit {
     public todoList: Data;
     taskForm: FormGroup;
 
-    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService, private changeDetector: ChangeDetectorRef) {
+    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService, private changeDetector: ChangeDetectorRef, private generateIDService: GenerateIDService) {
         userService.getUser.subscribe((value: { [key: string]: string | number } | null) => {
             this.user = value;
         })
@@ -59,7 +60,11 @@ export class TodoPageComponent implements OnInit {
                 next: (data: any) => {
                     this.openSnackBar(`Task '${this.taskForm.value.taskName}' created`);
                     this.taskForm.reset({taskName: '', isCompleted: false});
-                    this.todoList.todos.push(data);
+                    const taskWithNewId = {
+                      ...data,
+                      id: this.generateIDService.generateID(this.todoList.todos)
+                    };
+                    this.todoList.todos.push(taskWithNewId);
                     this.changeDetector.detectChanges();
                     console.log(this.todoList.todos)
                 },
