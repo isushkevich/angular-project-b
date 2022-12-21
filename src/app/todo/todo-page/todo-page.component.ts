@@ -78,4 +78,12 @@ export class TodoPageComponent implements OnInit {
         this.todoList.todos = this.todoList.todos.filter(task => task.id != taskId);
         this.changeDetector.detectChanges();
     }
+
+    editTask(task: TodoList) {
+        for (let i in this.todoList.todos) {
+            if (this.todoList.todos[i].id === task.id) {
+                this.todoList.todos[i] = task;
+            }
+        }
+    }
 }

@@ -20,6 +20,7 @@ export class TodoItemComponent implements OnInit, OnChanges {
     @Input() todo: TodoList;
     @Input() isCompleted: boolean;
     @Output() onDeleteTask: EventEmitter<number> = new EventEmitter();
+    @Output() onEditTask: EventEmitter<TodoList> = new EventEmitter();
     isEditMode: boolean;
     editTaskForm: FormGroup;
 
@@ -48,6 +49,13 @@ export class TodoItemComponent implements OnInit, OnChanges {
     }
 
     saveTask() {
+        const newTask = {
+            ...this.todo,
+            todo: this.editTaskForm.value.taskName,
+            completed: this.editTaskForm.value.isCompleted
+        }
+        console.log(newTask);
+        this.onEditTask.emit(newTask);
         this.switchEditMode();
     }
 }
