@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TodoList} from "./todo/todo-page/todo-page.component";
+import {TodoItem} from "./inerfaces";
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +9,7 @@ export class GenerateIDService {
     constructor() {
     }
 
-    generateID(todos: TodoList[]): number {
+    generateID(todos: TodoItem[]): number {
 
         let newID = 100;
         while (todos.some(todo => todo.id === newID)) {

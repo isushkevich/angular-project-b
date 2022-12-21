@@ -7,8 +7,8 @@ import {
     ChangeDetectorRef,
     OnChanges, Output, EventEmitter
 } from '@angular/core';
-import {TodoList} from "../todo-page/todo-page.component";
 import {FormControl, FormGroup} from "@angular/forms";
+import {TodoItem} from "../../inerfaces";
 
 @Component({
     selector: 'app-todo-item',
@@ -17,10 +17,10 @@ import {FormControl, FormGroup} from "@angular/forms";
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoItemComponent implements OnInit, OnChanges {
-    @Input() todo: TodoList;
+    @Input() todo: TodoItem;
     @Input() isCompleted: boolean;
     @Output() onDeleteTask: EventEmitter<number> = new EventEmitter();
-    @Output() onEditTask: EventEmitter<TodoList> = new EventEmitter();
+    @Output() onEditTask: EventEmitter<TodoItem> = new EventEmitter();
     isEditMode: boolean;
     editTaskForm: FormGroup;
 

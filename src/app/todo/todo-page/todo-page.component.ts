@@ -4,20 +4,7 @@ import {TodoService} from "../../todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup} from "@angular/forms";
 import {GenerateIDService} from "../../generate-id.service";
-
-export interface TodoList {
-    completed: boolean;
-    id: number;
-    todo: string;
-    userId: number;
-}
-
-export interface Data {
-    limit: number,
-    skip: number,
-    todos: Array<TodoList>,
-    total: number,
-}
+import {Data, TodoItem} from "../../inerfaces";
 
 @Component({
     selector: 'app-todo-page',
@@ -79,7 +66,7 @@ export class TodoPageComponent implements OnInit {
         this.changeDetector.detectChanges();
     }
 
-    editTask(task: TodoList) {
+    editTask(task: TodoItem) {
         for (let i in this.todoList.todos) {
             if (this.todoList.todos[i].id === task.id) {
                 this.todoList.todos[i] = task;
