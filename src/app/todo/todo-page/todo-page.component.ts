@@ -72,5 +72,6 @@ export class TodoPageComponent implements OnInit {
                 this.todoList.todos[i] = task;
             }
         }
+        this.changeDetector.detectChanges();
     }
 }
