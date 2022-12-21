@@ -27,14 +27,11 @@ export class TodoService {
         return this.http.post('https://dummyjson.com/todos/add', body, {headers: headers});
     }
 
-    editTask(taskName: string, completed: Boolean, userId: number | string) {
+    editTask() {
         const body = JSON.stringify({
-            todo: taskName,
-            completed: completed,
-            userId: userId,
+            completed: false,
         });
-
-        return this.http.post('https://dummyjson.com/todos/add', body, {headers: headers});
+        return this.http.put('https://dummyjson.com/todos/1', body, {headers: headers});
     }
 
     deleteTask() {

@@ -76,11 +76,20 @@ export class TodoPageComponent implements OnInit {
     }
 
     editTask(task: TodoItem) {
-        for (let i in this.todoList.todos) {
-            if (this.todoList.todos[i].id === task.id) {
-                this.todoList.todos[i] = task;
+        this.todoService.editTask().subscribe(
+            {
+                next: () => {
+                    for (let i in this.todoList.todos) {
+                        if (this.todoList.todos[i].id === task.id) {
+                            this.todoList.todos[i] = task;
+                        }
+                    }
+                    this.changeDetector.detectChanges();
+                },
+                error: error => {
+                    this.openSnackBar(error.error.message);
+                }
             }
-        }
-        this.changeDetector.detectChanges();
+        )
     }
 }

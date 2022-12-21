@@ -54,7 +54,6 @@ export class TodoItemComponent implements OnInit, OnChanges {
             todo: this.editTaskForm.value.taskName,
             completed: this.editTaskForm.value.isCompleted
         }
-        console.log(newTask);
         this.onEditTask.emit(newTask);
         this.switchEditMode();
     }
