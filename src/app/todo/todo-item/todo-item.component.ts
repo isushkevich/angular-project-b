@@ -8,6 +8,7 @@ import {
     OnChanges, Output, EventEmitter
 } from '@angular/core';
 import {TodoList} from "../todo-page/todo-page.component";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
     selector: 'app-todo-item',
@@ -19,11 +20,18 @@ export class TodoItemComponent implements OnInit, OnChanges {
     @Input() todo: TodoList;
     @Input() isCompleted: boolean;
     @Output() onDeleteTask: EventEmitter<number> = new EventEmitter();
+    isEditMode: boolean;
+    editTaskForm: FormGroup;
 
     constructor(private changeDetector: ChangeDetectorRef) {
+        this.editTaskForm = new FormGroup({
+            taskName: new FormControl(''),
+            isCompleted: new FormControl(false),
+        });
     }
 
     ngOnInit(): void {
+        this.editTaskForm.setValue({taskName: this.todo.todo, isCompleted: this.isCompleted})
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -31,11 +39,15 @@ export class TodoItemComponent implements OnInit, OnChanges {
         this.changeDetector.detectChanges();
     }
 
-    editTask() {
-
+    switchEditMode() {
+        this.isEditMode = !this.isEditMode;
     }
 
     deleteTask() {
         this.onDeleteTask.emit(this.todo.id);
+    }
+
+    saveTask() {
+        this.switchEditMode();
     }
 }
