@@ -33,12 +33,12 @@ export class TodoPageComponent implements OnInit {
     }
 
     ngOnInit() {
-       this.todoService.getTodoList(this.user.id).subscribe({
-           next: (data) => {
-               this.todoList = data;
-               this.changeDetector.detectChanges();
-           }
-       })
+        this.todoService.getTodoList(this.user.id).subscribe({
+            next: (data) => {
+                this.todoList = data;
+                this.changeDetector.detectChanges();
+            }
+        })
     }
 
     addTask() {
@@ -48,8 +48,8 @@ export class TodoPageComponent implements OnInit {
                     this.openSnackBar(`Task '${this.taskForm.value.taskName}' created`);
                     this.taskForm.reset({taskName: '', isCompleted: false});
                     const taskWithNewId = {
-                      ...data,
-                      id: this.generateIDService.generateID(this.todoList.todos)
+                        ...data,
+                        id: this.generateIDService.generateID(this.todoList.todos)
                     };
                     this.todoList.todos.push(taskWithNewId);
                     this.changeDetector.detectChanges();
@@ -62,8 +62,17 @@ export class TodoPageComponent implements OnInit {
     }
 
     deleteTask(taskId: number) {
-        this.todoList.todos = this.todoList.todos.filter(task => task.id != taskId);
-        this.changeDetector.detectChanges();
+        this.todoService.deleteTask().subscribe(
+            {
+                next: () => {
+                    this.todoList.todos = this.todoList.todos.filter(task => task.id != taskId);
+                    this.changeDetector.detectChanges();
+                },
+                error: error => {
+                    this.openSnackBar(error.error.message);
+                }
+            }
+        )
     }
 
     editTask(task: TodoItem) {
