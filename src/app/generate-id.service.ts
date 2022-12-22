@@ -15,7 +15,6 @@ export class GenerateIDService {
         while (todos.some(todo => todo.id === newID)) {
             newID = Math.ceil(Math.random() * 1000);
         }
-        console.log(newID)
         return newID;
     }
 
