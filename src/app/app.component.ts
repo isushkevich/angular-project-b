@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {UserService} from "./user.service";
 import {Router} from "@angular/router";
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {SnackbarService} from "./snackbar.service";
 
 @Component({
     selector: "app-root",
@@ -29,20 +29,16 @@ export class AppComponent {
     public title = "Ivan's To-Do App";
     public user: object | null;
 
-    constructor(private snackBar: MatSnackBar, private userService: UserService, private router: Router) {
+    constructor(private snackbarService: SnackbarService, private userService: UserService, private router: Router) {
         userService.getUser.subscribe((value) => {
             this.user = value;
         })
-    }
-
-    openSnackBar(content) {
-        this.snackBar.open(content, 'Close', {duration: 10000, panelClass: ["snackbar"]});
     }
 
     logOut() {
         this.userService.setUser(null);
         localStorage.clear();
         this.router.navigate(['/auth']);
-        this.openSnackBar(`Logged out successfully`);
+        this.snackbarService.openSnackBar(`Logged out successfully`);
     }
 }

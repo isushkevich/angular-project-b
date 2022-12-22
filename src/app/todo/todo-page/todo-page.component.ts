@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UserService} from "../../user.service";
 import {TodoService} from "../../todo.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {FormControl, FormGroup} from "@angular/forms";
 import {GenerateIDService} from "../../generate-id.service";
 import {Data, TodoItem} from "../../inerfaces";
+import {SnackbarService} from "../../snackbar.service";
 
 @Component({
     selector: 'app-todo-page',
@@ -17,7 +17,7 @@ export class TodoPageComponent implements OnInit {
     public todoList: Data;
     taskForm: FormGroup;
 
-    constructor(private snackBar: MatSnackBar, private userService: UserService, private todoService: TodoService, private changeDetector: ChangeDetectorRef, private generateIDService: GenerateIDService) {
+    constructor(private snackbarService: SnackbarService, private userService: UserService, private todoService: TodoService, private changeDetector: ChangeDetectorRef, private generateIDService: GenerateIDService) {
         userService.getUser.subscribe((value: { [key: string]: string | number } | null) => {
             this.user = value;
         })
@@ -26,10 +26,6 @@ export class TodoPageComponent implements OnInit {
             taskName: new FormControl(''),
             isCompleted: new FormControl(false),
         });
-    }
-
-    openSnackBar(content) {
-        this.snackBar.open(content, 'Close', {duration: 10000, panelClass: ["snackbar"]});
     }
 
     ngOnInit() {
@@ -45,7 +41,7 @@ export class TodoPageComponent implements OnInit {
         this.todoService.addTask(this.taskForm.value.taskName, this.taskForm.value.isCompleted, this.user.id)
             .subscribe({
                 next: (data: any) => {
-                    this.openSnackBar(`Task '${this.taskForm.value.taskName}' created`);
+                    this.snackbarService.openSnackBar(`Task '${this.taskForm.value.taskName}' created`);
                     this.taskForm.reset({taskName: '', isCompleted: false});
                     const taskWithNewId = {
                         ...data,
@@ -53,10 +49,9 @@ export class TodoPageComponent implements OnInit {
                     };
                     this.todoList.todos.push(taskWithNewId);
                     this.changeDetector.detectChanges();
-                    console.log(this.todoList.todos)
                 },
                 error: error => {
-                    this.openSnackBar(error.error.message);
+                    this.snackbarService.openSnackBar(error.error.message);
                 }
             })
     }
@@ -69,7 +64,7 @@ export class TodoPageComponent implements OnInit {
                     this.changeDetector.detectChanges();
                 },
                 error: error => {
-                    this.openSnackBar(error.error.message);
+                    this.snackbarService.openSnackBar(error.error.message);
                 }
             }
         )
@@ -87,7 +82,7 @@ export class TodoPageComponent implements OnInit {
                     this.changeDetector.detectChanges();
                 },
                 error: error => {
-                    this.openSnackBar(error.error.message);
+                    this.snackbarService.openSnackBar(error.error.message);
                 }
             }
         )

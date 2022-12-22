@@ -1,7 +1,7 @@
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {SnackbarService} from "../../snackbar.service";
 
 @Component({
     selector: 'app-signup-page',
@@ -14,7 +14,7 @@ export class SignupPageComponent implements OnInit {
     hidePassword: boolean;
     hidePasswordRepeat: boolean;
 
-    constructor(private snackBar: MatSnackBar, private router: Router) {
+    constructor(private snackbarService: SnackbarService, private router: Router) {
         this.signUpForm = new FormGroup({
             email: new FormControl('', [Validators.required, Validators.email]),
             login: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(64)]),
@@ -34,10 +34,6 @@ export class SignupPageComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    openSnackBar(content) {
-        this.snackBar.open(content, 'Close', {duration: 10000, panelClass: ["snackbar"]});
-    }
-
     onSubmit() {
         fetch('https://dummyjson.com/users/add', {
             method: 'POST',
@@ -53,9 +49,9 @@ export class SignupPageComponent implements OnInit {
             .then(
                 result => {
                     if (result.message) {
-                        this.openSnackBar(result.message);
+                        this.snackbarService.openSnackBar(result.message);
                     } else {
-                        this.openSnackBar(`Created user ${result.username}`);
+                        this.snackbarService.openSnackBar(`Created user ${result.username}`);
                         this.router.navigate(['/auth']);
                     }
                 }
